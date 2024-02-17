@@ -33,3 +33,7 @@ Run the following command to create a entioty framework migration:
 > Ensure you have a PostGres database and the connection string is correct.
 
 `dotent ef database update`
+
+## Drop database
+
+`dotnet ef database drop`
