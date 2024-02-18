@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 using CarAction.AuctionService.Data;
 using CarAction.AuctionService.DTOs;
@@ -22,15 +23,23 @@ public class AuctionsController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<AuctionDTO>>> GetAllAuctions()
-    {
-        var auctions = await _context.Auctions
-        .Include(x => x.Item)
-        .OrderBy(x => x.Item.Make)
-        .ToListAsync();
 
-        return _mapper.Map<List<AuctionDTO>>(auctions);
+    /// <summary>
+    /// Get all actions
+    /// </summary>
+    /// <param name="date">optional date to limit auctions created since this date</param>
+    /// <returns>List of AuctionDTO</returns>
+    [HttpGet]
+    public async Task<ActionResult<List<AuctionDTO>>> GetAllAuctions(string date)
+    {
+        var query = _context.Auctions.OrderBy(x => x.Item.Make).AsQueryable();
+
+        if (!string.IsNullOrEmpty(date))
+        {
+            query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
+        }
+
+        return await query.ProjectTo<AuctionDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
     }
 

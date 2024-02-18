@@ -20,27 +20,23 @@ public class DbInitializer
             .Key(i => i.Color, KeyType.Text)
             .CreateAsync();
 
-        await SeedData();
+        await SynchData(app);
     }
 
-    private static async Task SeedData()
+    private static async Task SynchData(WebApplication app)
     {
-        var count = await DB.CountAsync<Item>();
-        if (count == 0)
-        {
-            Console.WriteLine("Seeding data...");
+        using var scope = app.Services.CreateScope();
 
-            var itemData = await File.ReadAllTextAsync("Data/auctions.json");
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var items = JsonSerializer.Deserialize<List<Item>>(itemData, options);
-            var result = await DB.SaveAsync(items);
+        var httpClient = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
 
-            Console.WriteLine($"Inserted {result.InsertedCount} records");
-            Console.WriteLine(value: $"Updated {result.ModifiedCount} records");
-        }
-        else
+        var items = await httpClient.GetItemsForSearchDb();
+
+        Console.WriteLine($"Items count: {items.Count}");
+
+        if ( items.Count > 0 )
         {
-            Console.WriteLine($"Found {count} records");
+            await DB.SaveAsync(items);
         }
+
     }
 }
