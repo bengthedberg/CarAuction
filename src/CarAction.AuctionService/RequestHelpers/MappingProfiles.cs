@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using CarAction.AuctionService.DTOs;
 using CarAction.AuctionService.Entities;
 
