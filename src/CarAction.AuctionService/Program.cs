@@ -1,3 +1,4 @@
+using CarAction.AuctionService.Consumers;
 using CarAction.AuctionService.Data;
 
 using MassTransit;
@@ -8,19 +9,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<AuctionDbContext>(options => {
+builder.Services.AddDbContext<AuctionDbContext>(options =>
+{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddMassTransit(x => {
+builder.Services.AddMassTransit(x =>
+{
     x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
     {
-        o.QueryDelay = TimeSpan.FromSeconds(10);
+        o.QueryDelay = TimeSpan.FromSeconds(60);
         o.UsePostgres();
         o.UseBusOutbox();
-    }
-    );
-    x.UsingRabbitMq((context, cfg) => {
+    });
+
+    x.AddConsumersFromNamespaceContaining<AuctionCreatedErrorConsumer>();
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
         cfg.ConfigureEndpoints(context);
     });
 });
@@ -31,10 +38,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-try {
+try
+{
     DbInitializer.InitializeDb(app);
 }
-catch (Exception ex) {
+catch (Exception ex)
+{
     Console.WriteLine(ex);
 }
 

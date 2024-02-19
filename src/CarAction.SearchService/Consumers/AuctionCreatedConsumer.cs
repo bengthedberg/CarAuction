@@ -24,6 +24,12 @@ public class AuctionCreatedConsumer : IConsumer<AuctionCreated>
 
         var item = _mapper.Map<Item>(context.Message);
 
+        // Contrived example to throw exception if the item is a Saab
+        if (item.Make == "Saab")
+        {
+            throw new ArgumentException("Saab is not allowed");
+        }
+
         await item.SaveAsync();
     }
 }
