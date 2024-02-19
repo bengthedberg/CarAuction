@@ -1,4 +1,4 @@
-﻿using CarAction.Contracts.Actions;
+﻿using CarAction.Contracts.Auctions;
 
 using MassTransit;
 

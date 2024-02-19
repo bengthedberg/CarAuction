@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using CarAction.Contracts.Actions;
+using CarAction.Contracts.Auctions;
 using CarAction.SearchService.Models;
 
 using MassTransit;

@@ -24,6 +24,8 @@ builder.Services.AddMassTransit(x =>
     });
 
     x.AddConsumersFromNamespaceContaining<AuctionCreatedErrorConsumer>();
+    x.AddConsumersFromNamespaceContaining<AuctionUpdatedErrorConsumer>();
+    x.AddConsumersFromNamespaceContaining<AuctionDeletedErrorConsumer>();
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
 
     x.UsingRabbitMq((context, cfg) =>

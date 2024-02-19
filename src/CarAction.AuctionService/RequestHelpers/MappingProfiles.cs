@@ -2,7 +2,7 @@
 
 using CarAction.AuctionService.DTOs;
 using CarAction.AuctionService.Entities;
-using CarAction.Contracts.Actions;
+using CarAction.Contracts.Auctions;
 
 namespace CarAction.AuctionService.RequestHelpers;
 
@@ -17,5 +17,6 @@ public class MappingProfiles : Profile
         CreateMap<CreateAuctionDTO, Item>();
 
         CreateMap<AuctionDTO, AuctionCreated>();
+        CreateMap<Item, AuctionUpdated>();
     }
 }

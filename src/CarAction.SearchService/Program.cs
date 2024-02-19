@@ -14,13 +14,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient<AuctionServiceHttpClient>().AddPolicyHandler(GetPolicy());
-builder.Services.AddMassTransit(x => {
+builder.Services.AddMassTransit(x =>
+{
     x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
-    x.UsingRabbitMq((context, cfg) => {
-        cfg.ReceiveEndpoint("search-auction-created", e => {
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ReceiveEndpoint("search-auction-created", e =>
+        {
             e.UseMessageRetry(r => r.Interval(5, 5)); // Retry every 5 seconds for 5 times
             e.ConfigureConsumer<AuctionCreatedConsumer>(context); // Only apply it to the AuctionCreatedConsumer
+        });
+        cfg.ReceiveEndpoint("search-auction-updated", e =>
+        {
+            e.UseMessageRetry(r => r.Interval(5, 5));
+            e.ConfigureConsumer<AuctionUpdatedConsumer>(context);
+        });
+        cfg.ReceiveEndpoint("search-auction-deleted", e =>
+        {
+            e.UseMessageRetry(r => r.Interval(5, 5));
+            e.ConfigureConsumer<AuctionDeletedConsumer>(context);
         });
         cfg.ConfigureEndpoints(context);
     });

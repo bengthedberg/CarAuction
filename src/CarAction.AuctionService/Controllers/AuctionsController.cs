@@ -4,7 +4,7 @@ using AutoMapper.QueryableExtensions;
 using CarAction.AuctionService.Data;
 using CarAction.AuctionService.DTOs;
 using CarAction.AuctionService.Entities;
-using CarAction.Contracts.Actions;
+using CarAction.Contracts.Auctions;
 
 using MassTransit;
 
@@ -110,6 +110,11 @@ public class AuctionsController : ControllerBase
         auction.Item.Mileage = auctionDto.Mileage ?? auction.Item.Mileage;
         auction.Item.Color = auctionDto.Color ?? auction.Item.Color;
 
+        // Send the event to the message broker
+        var updatedEvent = _mapper.Map<AuctionUpdated>(auction.Item);
+        updatedEvent.Id = id.ToString();
+        await _publishEndpoint.Publish<AuctionUpdated>(updatedEvent);
+
         var result = await _context.SaveChangesAsync() > 0;
 
         return result
@@ -131,6 +136,9 @@ public class AuctionsController : ControllerBase
         // TODO: check that seller matches the original seller name
 
         _context.Auctions.Remove(auction);
+
+        // Send the event to the message broker
+        await _publishEndpoint.Publish<AuctionDeleted>(_mapper.Map<AuctionDeleted>(new AuctionDeleted { Id = id.ToString() }));
 
         var result = await _context.SaveChangesAsync() > 0;
 

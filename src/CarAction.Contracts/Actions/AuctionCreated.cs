@@ -1,4 +1,4 @@
-﻿namespace CarAction.Contracts.Actions;
+﻿namespace CarAction.Contracts.Auctions;
 
 public class AuctionCreated
 {
