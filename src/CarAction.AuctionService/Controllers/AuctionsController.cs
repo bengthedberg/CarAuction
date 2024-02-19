@@ -4,6 +4,9 @@ using AutoMapper.QueryableExtensions;
 using CarAction.AuctionService.Data;
 using CarAction.AuctionService.DTOs;
 using CarAction.AuctionService.Entities;
+using CarAction.Contracts.Actions;
+
+using MassTransit;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +19,13 @@ public class AuctionsController : ControllerBase
 {
     private readonly AuctionDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public AuctionsController(AuctionDbContext context, IMapper mapper)
+    public AuctionsController(AuctionDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _context = context;
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
     }
 
 
@@ -68,9 +73,21 @@ public class AuctionsController : ControllerBase
         // return the number of created records
         var result = await _context.SaveChangesAsync() > 0;
 
-        return result
-        ? CreatedAtAction(nameof(GetAuctionById), new { id = auction.Id }, _mapper.Map<AuctionDTO>(auction))
-        : BadRequest("Failed to save the auction");
+        if (result)
+        {
+            // Create a DTO with the new Auction Id
+            var newAuction = _mapper.Map<AuctionDTO>(auction);
+
+            // Send the event to the message broker
+            await _publishEndpoint.Publish<AuctionCreated>(_mapper.Map<AuctionCreated>(newAuction));
+
+            // Return the created record
+            return CreatedAtAction(nameof(GetAuctionById), new { id = auction.Id }, newAuction);
+        }
+        else
+        {
+            return BadRequest("Failed to save the auction");
+        }
     }
 
     [HttpPut("{id}")]
