@@ -70,17 +70,17 @@ public class AuctionsController : ControllerBase
 
         _context.Auctions.Add(auction);
 
+        // Create a DTO with the new Auction Id
+        var newAuction = _mapper.Map<AuctionDTO>(auction);
+
+        // Send the event to the message broker
+        await _publishEndpoint.Publish<AuctionCreated>(_mapper.Map<AuctionCreated>(newAuction));
+
         // return the number of created records
         var result = await _context.SaveChangesAsync() > 0;
 
         if (result)
         {
-            // Create a DTO with the new Auction Id
-            var newAuction = _mapper.Map<AuctionDTO>(auction);
-
-            // Send the event to the message broker
-            await _publishEndpoint.Publish<AuctionCreated>(_mapper.Map<AuctionCreated>(newAuction));
-
             // Return the created record
             return CreatedAtAction(nameof(GetAuctionById), new { id = auction.Id }, newAuction);
         }
