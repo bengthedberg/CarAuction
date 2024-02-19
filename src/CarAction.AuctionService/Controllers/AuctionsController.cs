@@ -111,9 +111,7 @@ public class AuctionsController : ControllerBase
         auction.Item.Color = auctionDto.Color ?? auction.Item.Color;
 
         // Send the event to the message broker
-        var updatedEvent = _mapper.Map<AuctionUpdated>(auction.Item);
-        updatedEvent.Id = id.ToString();
-        await _publishEndpoint.Publish<AuctionUpdated>(updatedEvent);
+        await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
 
         var result = await _context.SaveChangesAsync() > 0;
 

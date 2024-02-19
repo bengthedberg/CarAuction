@@ -19,12 +19,14 @@ public class AuctionUpdatedConsumer : IConsumer<AuctionUpdated>
     {
         Console.WriteLine($"----> Consuming the auction updated event {context.Message.Id}");
 
-
         var item = _mapper.Map<Item>(context.Message);
 
-        var x = await DB.Update<Item>()
-        .MatchID(context.Message.Id)
+        var result = await DB.Update<Item>()
+        .Match(a => a.ID == context.Message.Id)
         .ModifyOnly(b => new { b.Make, b.Model, b.Mileage, b.Color, b.Year }, item)
-        .ExecuteAsync();  
+        .ExecuteAsync();
+
+        if (!result.IsAcknowledged)
+            throw new MessageException(typeof(AuctionUpdated), "Problem updating mongodb");
     }
 }

@@ -17,6 +17,7 @@ public class MappingProfiles : Profile
         CreateMap<CreateAuctionDTO, Item>();
 
         CreateMap<AuctionDTO, AuctionCreated>();
+        CreateMap<Auction, AuctionUpdated>().IncludeMembers(a => a.Item);
         CreateMap<Item, AuctionUpdated>();
     }
 }
