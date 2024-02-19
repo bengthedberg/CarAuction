@@ -2,6 +2,8 @@ using System.Net;
 
 using CarAction.SearchService;
 
+using MassTransit;
+
 using Polly;
 using Polly.Extensions.Http;
 
@@ -11,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<AuctionServiceHttpClient>().AddPolicyHandler(GetPolicy());
+builder.Services.AddMassTransit(x => {
+    x.UsingRabbitMq((context, cfg) => {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 
