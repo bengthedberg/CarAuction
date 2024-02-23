@@ -52,7 +52,6 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     await Policy.Handle<TimeoutException>()
         .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(10))
         .ExecuteAndCaptureAsync(async () => await DbInitializer.InitializeDb(app));
-
 });
 
 app.Run();
