@@ -3,7 +3,7 @@ using CarAction.Contracts.Auctions;
 
 using MassTransit;
 
-namespace CarAction.AuctionService;
+namespace CarAction.AuctionService.Consumers;
 
 public class BidPlacedConsumer : IConsumer<BidPlaced>
 {
