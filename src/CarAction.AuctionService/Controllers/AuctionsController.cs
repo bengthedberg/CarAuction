@@ -8,6 +8,10 @@ using CarAction.Contracts.Auctions;
 
 using MassTransit;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,13 +64,13 @@ public class AuctionsController : ControllerBase
             : _mapper.Map<AuctionDTO>(auction);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<AuctionDTO>> CreateAuction(CreateAuctionDTO auctionDto)
     {
         var auction = _mapper.Map<Auction>(auctionDto);
 
-        // TODO: Add current user as seller
-        auction.Seller = "Test";
+        auction.Seller = User.Identity.Name; // As we specified the NameClaimType at startup
 
         _context.Auctions.Add(auction);
 
@@ -90,6 +94,7 @@ public class AuctionsController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdateAuction(Guid id, UpdateAuctionDTO auctionDto)
     {
@@ -100,7 +105,9 @@ public class AuctionsController : ControllerBase
         if (auction == null)
             return NotFound();
 
-        // TODO: check that seller matches the original seller name
+        // Check that seller matches the original seller name
+        if (auction.Seller != User.Identity.Name)
+            return Forbid();
 
         // NOTE: Usually not recommended to update all of the values.
         // Recommended to implement some logic in the entity to validate what can change.
@@ -121,6 +128,7 @@ public class AuctionsController : ControllerBase
     }
 
     // NOTE: Normally a delete is not actually relevant in a production system, possible mark the record as removed.
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAuction(Guid id)
     {
@@ -131,7 +139,9 @@ public class AuctionsController : ControllerBase
         if (auction == null)
             return NotFound();
 
-        // TODO: check that seller matches the original seller name
+        // Check that seller matches the original seller name
+        if (auction.Seller != User.Identity.Name)
+            return Forbid();
 
         _context.Auctions.Remove(auction);
 

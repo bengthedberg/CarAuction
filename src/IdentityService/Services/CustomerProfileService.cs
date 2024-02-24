@@ -23,11 +23,11 @@ public class CustomerProfileService : IProfileService
     public async Task GetProfileDataAsync(ProfileDataRequestContext context)
     {
         var user = await _userManager.GetUserAsync(context.Subject); // User Id
-        var existingClaims = await _userManager.GetClaimsAsync(user);
+        var existingClaims = await _userManager.GetClaimsAsync(user ?? default!);
 
         var claims = new List<Claim>
         {
-            new Claim("username", user.UserName ?? "unknown"),
+            new Claim("username", user!.UserName ?? "unknown"),
         };
 
         context.IssuedClaims.AddRange(claims);
