@@ -1,3 +1,5 @@
+using Duende.IdentityServer.AspNetIdentity;
+
 using IdentityService.Data;
 using IdentityService.Models;
 
@@ -35,21 +37,23 @@ internal static class HostingExtensions
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
-            .AddAspNetIdentity<ApplicationUser>();
-        
-        builder.Services.ConfigureApplicationCookie(options => { 
-            options.Cookie.SameSite = SameSiteMode.Lax; 
+            .AddAspNetIdentity<ApplicationUser>()
+            .AddProfileService<CustomerProfileService>();
+
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.SameSite = SameSiteMode.Lax;
         });
 
-        builder.Services.AddAuthentication();            
+        builder.Services.AddAuthentication();
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
-    
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -59,7 +63,7 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
-        
+
         app.MapRazorPages()
             .RequireAuthorization();
 
