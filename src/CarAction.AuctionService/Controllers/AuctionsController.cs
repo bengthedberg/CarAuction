@@ -21,13 +21,14 @@ namespace CarAction.AuctionService.Controller;
 [Route("api/auctions")]
 public class AuctionsController : ControllerBase
 {
-    private readonly AuctionDbContext _context;
+    private readonly IAuctionRepository _repo;
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public AuctionsController(AuctionDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
+    public AuctionsController(IAuctionRepository repo, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
-        _context = context;
+        _repo = repo;
+
         _mapper = mapper;
         _publishEndpoint = publishEndpoint;
     }
@@ -41,23 +42,13 @@ public class AuctionsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<AuctionDTO>>> GetAllAuctions(string date)
     {
-        var query = _context.Auctions.OrderBy(x => x.Item.Make).AsQueryable();
-
-        if (!string.IsNullOrEmpty(date))
-        {
-            query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
-        }
-
-        return await query.ProjectTo<AuctionDTO>(_mapper.ConfigurationProvider).ToListAsync();
-
+        return await _repo.GetAuctionsAsync(date);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<AuctionDTO>> GetAuctionById(Guid id)
     {
-        var auction = await _context.Auctions
-        .Include(x => x.Item)
-        .FirstOrDefaultAsync(x => x.Id == id);
+        var auction = await _repo.GetAuctionByIdAsync(id);
 
         return (auction == null)
             ? NotFound()
@@ -72,7 +63,7 @@ public class AuctionsController : ControllerBase
 
         auction.Seller = User.Identity.Name; // As we specified the NameClaimType at startup
 
-        _context.Auctions.Add(auction);
+        _repo.AddAuction(auction);
 
         // Create a DTO with the new Auction Id
         var newAuction = _mapper.Map<AuctionDTO>(auction);
@@ -81,7 +72,7 @@ public class AuctionsController : ControllerBase
         await _publishEndpoint.Publish<AuctionCreated>(_mapper.Map<AuctionCreated>(newAuction));
 
         // return the number of created records
-        var result = await _context.SaveChangesAsync() > 0;
+        var result = await _repo.SaveChangesAsync();
 
         if (result)
         {
@@ -99,8 +90,7 @@ public class AuctionsController : ControllerBase
     public async Task<ActionResult> UpdateAuction(Guid id, UpdateAuctionDTO auctionDto)
     {
         // Get existing record
-        var auction = await _context.Auctions.Include(x => x.Item)
-            .FirstOrDefaultAsync(x => x.Id == id);
+        var auction = await _repo.GetAuctionEntityByIdAsync(id);
 
         if (auction == null)
             return NotFound();
@@ -120,7 +110,7 @@ public class AuctionsController : ControllerBase
         // Send the event to the message broker
         await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
 
-        var result = await _context.SaveChangesAsync() > 0;
+        var result = await _repo.SaveChangesAsync();
 
         return result
             ? NoContent()
@@ -133,8 +123,7 @@ public class AuctionsController : ControllerBase
     public async Task<ActionResult> DeleteAuction(Guid id)
     {
         // Get existing record
-        var auction = await _context.Auctions.Include(x => x.Item)
-            .FirstOrDefaultAsync(x => x.Id == id);
+        var auction = await _repo.GetAuctionEntityByIdAsync(id);
 
         if (auction == null)
             return NotFound();
@@ -143,12 +132,12 @@ public class AuctionsController : ControllerBase
         if (auction.Seller != User.Identity.Name)
             return Forbid();
 
-        _context.Auctions.Remove(auction);
+        _repo.RemoveAuction(auction);
 
         // Send the event to the message broker
         await _publishEndpoint.Publish<AuctionDeleted>(_mapper.Map<AuctionDeleted>(new AuctionDeleted { Id = id.ToString() }));
 
-        var result = await _context.SaveChangesAsync() > 0;
+        var result = await _repo.SaveChangesAsync();
 
         return result
             ? NoContent()

@@ -33,9 +33,9 @@
 Naming convention of unit tests:
 `MethodToTest_Scenario_ExpectedResult`
 
-### Integration Test
+### Automated Integration Test
 
-Should test how separate part of application work together, without the need of external services like databases.
+Automated integration tests should test how separate part of application work together, without the need of external services like databases.
 
 We use test doubles instead of the real services, as our services still dependent on these external services. We need to control the behaviour of this dependencies by using any of the following:
 
