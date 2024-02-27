@@ -141,10 +141,10 @@ public class AuctionControllerTests
         _auctionRepo.Setup(repo => repo.SaveChangesAsync()).ReturnsAsync(true);
 
         // Act
-        var result = _controller.UpdateAuction(auction.Id, updateAuctionDto);
+        var result = await _controller.UpdateAuction(auction.Id, updateAuctionDto);
 
         // Assert
-        Assert.IsType<NoContentResult>(result.Result);
+        Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
@@ -159,10 +159,10 @@ public class AuctionControllerTests
         _auctionRepo.Setup(repo => repo.GetAuctionEntityByIdAsync(It.IsAny<Guid>())).ReturnsAsync(auction);
 
         // Act
-        var result = _controller.UpdateAuction(auction.Id, updateAuctionDto);
+        var result = await _controller.UpdateAuction(auction.Id, updateAuctionDto);
 
         // Assert
-        Assert.IsType<ForbidResult>(result.Result);
+        Assert.IsType<ForbidResult>(result);
     }
 
     [Fact]
@@ -174,10 +174,10 @@ public class AuctionControllerTests
         _auctionRepo.Setup(repo => repo.GetAuctionEntityByIdAsync(It.IsAny<Guid>())).ReturnsAsync(value: null);
 
         // Act
-        var result = _controller.UpdateAuction(auction.Id, updateAuctionDto);
+        var result = await _controller.UpdateAuction(auction.Id, updateAuctionDto);
 
         // Assert
-        Assert.IsType<NotFoundResult>(result.Result);
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
@@ -191,10 +191,10 @@ public class AuctionControllerTests
         _auctionRepo.Setup(repo => repo.SaveChangesAsync()).ReturnsAsync(true);
 
         // Act
-        var result = _controller.DeleteAuction(auction.Id);
+        var result = await _controller.DeleteAuction(auction.Id);
 
         // Assert
-        Assert.IsType<NoContentResult>(result.Result);
+        Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
@@ -205,10 +205,10 @@ public class AuctionControllerTests
         _auctionRepo.Setup(repo => repo.GetAuctionEntityByIdAsync(It.IsAny<Guid>())).ReturnsAsync(value: null);
 
         // Act
-        var result = _controller.DeleteAuction(auction.Id);
+        var result = await _controller.DeleteAuction(auction.Id);
 
         // Assert
-        Assert.IsType<NotFoundResult>(result.Result);
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
@@ -222,9 +222,9 @@ public class AuctionControllerTests
         _auctionRepo.Setup(repo => repo.GetAuctionEntityByIdAsync(It.IsAny<Guid>())).ReturnsAsync(auction);
 
         // Act
-        var result = _controller.DeleteAuction(auction.Id);
+        var result = await _controller.DeleteAuction(auction.Id);
 
         // Assert
-        Assert.IsType<ForbidResult>(result.Result);
+        Assert.IsType<ForbidResult>(result);
     }
 }
