@@ -70,3 +70,6 @@ catch (Exception ex)
 }
 
 app.Run();
+
+// Give the WebApplicationFactory in the Integration Tests access to the Program class.
+public partial class Program { }

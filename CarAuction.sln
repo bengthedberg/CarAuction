@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{89B5BC8C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAction.AuctionService.Unit.Tests", "tests\CarAction.AuctionService.Unit.Tests\CarAction.AuctionService.Unit.Tests.csproj", "{4D85A97E-3D35-492F-BD9C-90CD53F2934B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAction.AuctionService.Integration.Tests", "tests\CarAction.AuctionService.Integration.Tests\CarAction.AuctionService.Integration.Tests.csproj", "{C54B37CE-C4B2-493D-9672-8C3D69618695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{4D85A97E-3D35-492F-BD9C-90CD53F2934B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D85A97E-3D35-492F-BD9C-90CD53F2934B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D85A97E-3D35-492F-BD9C-90CD53F2934B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54B37CE-C4B2-493D-9672-8C3D69618695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54B37CE-C4B2-493D-9672-8C3D69618695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54B37CE-C4B2-493D-9672-8C3D69618695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54B37CE-C4B2-493D-9672-8C3D69618695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{8669D2DB-EDC2-43DE-9232-BD55D62D6DE7} = {E9AA6276-1388-434A-AB2B-05F198C0DDA6}
 		{C53309A1-2B7A-47ED-8B6A-B242E8AFA3AE} = {E9AA6276-1388-434A-AB2B-05F198C0DDA6}
 		{4D85A97E-3D35-492F-BD9C-90CD53F2934B} = {89B5BC8C-79B8-4007-AE3C-DF358464F369}
+		{C54B37CE-C4B2-493D-9672-8C3D69618695} = {89B5BC8C-79B8-4007-AE3C-DF358464F369}
 	EndGlobalSection
 EndGlobal
