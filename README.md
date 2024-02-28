@@ -62,3 +62,29 @@ For our integration tests we will use:
 * [AutoFixture](https://github.com/AutoFixture/AutoFixture?tab=readme-ov-file#documentation)
 * [MassTransit Test Harness](https://masstransit.io/documentation/concepts/testing)
 * [Test Containers](https://www.azureblue.io/asp-net-core-integration-tests-with-test-containers-and-postgres/)
+
+
+## Client
+
+### Next.JS
+
+Next.js is an open-source web development framework created by the private company Vercel providing React-based web applications with server-side rendering and static website generation.
+
+[Documentation](https://nextjs.org/docs)
+
+#### Why Next.JS?
+
+**Pro**
+* Performance.
+* Lazy loading and pre-fetching.
+* Good SEO due to server side rendering.
+* BFF, [Backend for Frontend Design Pattern with Next.js](https://dev.to/adelhamad/bff-backend-for-frontend-design-pattern-with-nextjs-3od0).
+* Secure, can keep secrets in the back end, never exposed to client.
+* React based.
+
+**Cons**
+
+* Opiniated, can frustrate some.
+* Routing, some dont like the way its implemented.
+* React based.
+
