@@ -88,3 +88,7 @@ Next.js is an open-source web development framework created by the private compa
 * Routing, some dont like the way its implemented.
 * React based.
 
+## Tailwind
+
+* [flex](https://flexboxfroggy.com/)
+* pm install react-icons   
