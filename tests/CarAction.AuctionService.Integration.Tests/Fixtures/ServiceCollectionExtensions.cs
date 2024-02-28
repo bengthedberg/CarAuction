@@ -1,4 +1,5 @@
 ﻿using CarAction.AuctionService.Data;
+using CarAction.AuctionService.Integration.Tests.Utils;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

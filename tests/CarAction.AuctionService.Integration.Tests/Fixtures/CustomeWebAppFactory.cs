@@ -58,6 +58,8 @@ public class CustomWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetim
             // Create database, run migrations and seed with test data.
             services.EnsureCreated<AuctionDbContext>();
 
+            // This will remove the configure for JwtBearer in Program class and
+            // add Fake JwtBearer authentication.
             services.AddAuthentication(FakeJwtBearerDefaults.AuthenticationScheme)
                 .AddFakeJwtBearer(opt =>
                 {

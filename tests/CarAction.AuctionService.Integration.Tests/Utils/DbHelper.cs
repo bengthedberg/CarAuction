@@ -1,8 +1,7 @@
 ﻿using CarAction.AuctionService.Data;
 using CarAction.AuctionService.Entities;
 
-namespace CarAction.AuctionService.Integration.Tests.Fixtures;
-
+namespace CarAction.AuctionService.Integration.Tests.Utils;
 
 /// <summary>
 /// Setup test data in our Postgres Sql Container.

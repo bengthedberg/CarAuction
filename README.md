@@ -56,6 +56,7 @@ We use test doubles instead of the real services, as our services still dependen
 For our integration tests we will use:
 
 * [XUnit](https://xunit.net/)
+    * [XUnit's IAsyncLifetime](https://www.danclarke.com/cleaner-tests-with-iasynclifetime)
 * [Moq](https://github.com/devlooped/moq/wiki)
     * [Video](https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework)
 * [AutoFixture](https://github.com/AutoFixture/AutoFixture?tab=readme-ov-file#documentation)
