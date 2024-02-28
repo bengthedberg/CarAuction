@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CarAction.AuctionService.Integration.Tests;
 
 [Collection("Shared collection")]
-public class AuctionControllerTests : IAsyncLifetime, IClassFixture<CustomWebAppFactory>
+public class AuctionControllerTests : IAsyncLifetime
 {
     private readonly CustomWebAppFactory _factory;
 
@@ -142,10 +142,9 @@ public class AuctionControllerTests : IAsyncLifetime, IClassFixture<CustomWebApp
         _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser("bob"));
 
         // Act
-        var response = await _httpClient.PostAsJsonAsync($"api/auctions/{_gT_ID}", auction);
+        var response = await _httpClient.PostAsJsonAsync($"api/auctions", auction);
 
         // Assert
-        response.EnsureSuccessStatusCode();
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 

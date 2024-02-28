@@ -13,7 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CarAction.AuctionService.Integration.Tests;
 
-public class AuctionEventBusTests : IClassFixture<CustomWebAppFactory>, IAsyncLifetime
+[Collection("Shared collection")]
+public class AuctionEventBusTests : IAsyncLifetime
 {
     private readonly CustomWebAppFactory _factory;
     private readonly HttpClient _httpClient;
