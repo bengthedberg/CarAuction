@@ -14,6 +14,7 @@ COPY src/CarAction.Contracts/CarAction.Contracts.csproj src/CarAction.Contracts/
 COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityService.csproj
 COPY tests/CarAction.AuctionService.Integration.Tests/CarAction.AuctionService.Integration.Tests.csproj tests/CarAction.AuctionService.Integration.Tests/CarAction.AuctionService.Integration.Tests.csproj
 COPY tests/CarAction.AuctionService.Unit.Tests/CarAction.AuctionService.Unit.Tests.csproj tests/CarAction.AuctionService.Unit.Tests/CarAction.AuctionService.Unit.Tests.csproj
+COPY tests/CarAction.SearchService.Integration.Tests/CarAction.SearchService.Integration.Tests.csproj tests/CarAction.SearchService.Integration.Tests/CarAction.SearchService.Integration.Tests.csproj
 
 # Restore package dependecies
 RUN dotnet restore CarAuction.sln
