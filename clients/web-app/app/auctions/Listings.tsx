@@ -2,7 +2,7 @@ import React from "react";
 import AuctionCard from "./AuctionCard";
 
 async function getData() {
-  const res = await fetch("http://localhost:6001/search?PageSize=10");
+  const res = await fetch("http://localhost:6001/search?PageSize=9");
 
   if (!res.ok) throw new Error("Failed to fetch data");
 

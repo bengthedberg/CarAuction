@@ -91,4 +91,5 @@ Next.js is an open-source web development framework created by the private compa
 ## Tailwind
 
 * [flex](https://flexboxfroggy.com/)
-* pm install react-icons   
+* npm install react-icons   
+* npm install react-countdown 
