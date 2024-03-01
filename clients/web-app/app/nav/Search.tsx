@@ -9,10 +9,30 @@ export default function Search() {
   const router = useRouter();
   const pathname = usePathname();
   const setParams = useParamsStore((state) => state.setParams);
+  const setSearchValue = useParamsStore((state) => state.setSearchValue);
+  const searchValue = useParamsStore((state) => state.searchValue);
+
+  // An event that trigger when a user typed a key
+  function onChange(event: any) {
+    setSearchValue(event.target.value);
+  }
+
+  // Set the search term
+  function search() {
+    if (pathname !== "/") router.push("/");
+    setParams({ searchTerm: searchValue });
+  }
 
   return (
     <div className="flex w-[50%] items-center border-2 rounded-full py-2 shadow-sm">
       <input
+        //initiate a search when user pressed enter
+        onKeyDown={(e: any) => {
+          if (e.key === "Enter") search();
+        }}
+        value={searchValue}
+        // add typed value to search term
+        onChange={onChange}
         type="text"
         placeholder="Search for cars by make, model or color"
         className="
@@ -27,10 +47,10 @@ export default function Search() {
                 text-gray-600
             "
       />
-      <button onClick={() => true}>
+      <button onClick={search}>
         <FaSearch
           size={34}
-          className="bg-blue-400 text-white rounded-full p-2 cursor-pointer mx-2"
+          className="bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2"
         />
       </button>
     </div>
