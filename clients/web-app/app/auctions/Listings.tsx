@@ -7,7 +7,6 @@ import { getData } from "../actions/auctionAction";
 import { Auction, PagedResult } from "@/types";
 import Filters from "./Filters";
 import { useParamsStore } from "@/hooks/useParamsStore";
-import { shallow } from "zustand/shallow";
 import qs from "query-string";
 
 export default function Listings() {
@@ -17,8 +16,7 @@ export default function Listings() {
       pageNumber: state.pageNumber,
       pageSize: state.pageSize,
       searchTerm: state.searchTerm,
-    }),
-    shallow
+    })
   );
   const setParams = useParamsStore((state) => state.setParams);
   const url = qs.stringifyUrl({ url: "", query: params });
