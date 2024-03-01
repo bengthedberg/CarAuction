@@ -27,7 +27,7 @@ const orderButtons = [
 const customTheme: CustomFlowbiteTheme["button"] = {
   color: {
     gray: "text-gray-500 bg-white border border-gray-300 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 focus:text-cyan-700 dark:bg-transparent dark:text-gray-400 dark:border-gray-600 dark:enabled:hover:text-white dark:enabled:hover:bg-gray-700",
-    blue: "text-blue-100 bg-blue-700 border border-transparent enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:bg-blue-600 dark:hover:bg-blue-700",
+    blue: "text-blue-100 bg-blue-500 border border-transparent enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:bg-blue-500 dark:hover:bg-blue-700",
   },
   size: {
     custom: "text-base px-4 py-1",
@@ -43,7 +43,6 @@ export default function Filters() {
   const pageSize = useParamsStore((state) => state.pageSize);
   const orderBy = useParamsStore((state) => state.orderBy);
   const setParams = useParamsStore((state) => state.setParams);
-
 
   return (
     <div className="flex justify-between items-center mb-4">
