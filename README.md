@@ -100,3 +100,24 @@ Next.js is an open-source web development framework created by the private compa
 ## State Management
 
 Instead of storing state locally in each component we will use [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) as a lightweight state management solution.
+
+## Authorization
+
+[NextAuth](https://next-auth.js.org/) will become [Auth.js](https://authjs.dev/).
+
+```mermaid
+%% Successful Authentication Flow
+  sequenceDiagram
+    User->>Browser: Click on login
+    Browser->>Identity Server: ["Client Id", "Redirect URI", "Response Type", "Scope" ]
+    Identity Server->>Identity Server: Login Form
+    User->>Identity Server: Enter user and password
+    Identity Server->>Browser: ["Authorization Code", "Redirect URI"]
+    Browser->>Browser: Redirect to URL
+    Browser->>Identity Server: ["Authorization Code", "Client ID", "Client Secret"]
+    Identity Server->>Browser: ["Access Token"]
+    Browser->>Browser: Store Access Token in Encrypeted Cookie
+    Browser->>Resource: Request authenticated access using the stored Access Token
+    Resource->>Identity Server: Verify Token ["Client Id", "Client Secret"]
+```
+
