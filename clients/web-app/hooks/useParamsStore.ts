@@ -7,6 +7,7 @@ type State = {
   pageCount: number;
   searchTerm: string;
   searchValue: string;
+  orderBy: string;
 };
 
 type Actions = {
@@ -21,26 +22,30 @@ const initialState: State = {
   pageCount: 1,
   searchTerm: "",
   searchValue: "",
+  orderBy: "make",
 };
 
-export const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({
-  ...initialState,
+export const useParamsStore = createWithEqualityFn<State & Actions>()(
+  (set) => ({
+    ...initialState,
 
-  setParams: (newParams: Partial<State>) => {
-    set((state) => {
-      // if pagenumber is updated
-      if (newParams.pageNumber) {
-        return { ...state, pageNumber: newParams.pageNumber };
-      } else {
-        // reset the page number for all other changes
-        return { ...state, ...newParams, pageNumber: 1 };
-      }
-    });
-  },
+    setParams: (newParams: Partial<State>) => {
+      set((state) => {
+        // if pagenumber is updated
+        if (newParams.pageNumber) {
+          return { ...state, pageNumber: newParams.pageNumber };
+        } else {
+          // reset the page number for all other changes
+          return { ...state, ...newParams, pageNumber: 1 };
+        }
+      });
+    },
 
-  reset: () => set(initialState),
+    reset: () => set(initialState),
 
-  setSearchValue: (value: string) => {
-    set({ searchValue: value });
-  },
-}), shallow);
+    setSearchValue: (value: string) => {
+      set({ searchValue: value });
+    },
+  }),
+  shallow
+);

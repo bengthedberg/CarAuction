@@ -1,8 +1,28 @@
 import { useParamsStore } from "@/hooks/useParamsStore";
 import { Button, CustomFlowbiteTheme } from "flowbite-react";
 import React from "react";
+import { AiOutlineClockCircle, AiOutlineSortAscending } from "react-icons/ai";
+import { BsFillStopCircleFill } from "react-icons/bs";
 
 const pageSizeButtons = [4, 8, 12];
+
+const orderButtons = [
+  {
+    label: "Alphabetical",
+    icon: AiOutlineSortAscending,
+    value: "make",
+  },
+  {
+    label: "End date",
+    icon: AiOutlineClockCircle,
+    value: "endingSoon",
+  },
+  {
+    label: "Recently added",
+    icon: BsFillStopCircleFill,
+    value: "new",
+  },
+];
 
 const customTheme: CustomFlowbiteTheme["button"] = {
   color: {
@@ -20,18 +40,38 @@ const customTheme: CustomFlowbiteTheme["button"] = {
 };
 
 export default function Filters() {
-  const pageSize = useParamsStore(state => state.pageSize)
-  const setParams = useParamsStore(state => state.setParams)
+  const pageSize = useParamsStore((state) => state.pageSize);
+  const orderBy = useParamsStore((state) => state.orderBy);
+  const setParams = useParamsStore((state) => state.setParams);
+
 
   return (
     <div className="flex justify-between items-center mb-4">
       <div>
-        <span className="text-sm text-gray-500 mr-2">Page Size</span>
+        <span className="text-sm text-gray-400 mr-2">Order</span>
+        <Button.Group>
+          {orderButtons.map(({ label, icon: Icon, value }) => (
+            <Button
+              key={value}
+              onClick={() => setParams({ orderBy: value })}
+              color={`${orderBy === value ? "blue" : "gray"}`}
+              size="custom"
+              theme={customTheme}
+            >
+              <Icon className="mr-3 h-4 w-4" />
+              {label}
+            </Button>
+          ))}
+        </Button.Group>
+      </div>
+
+      <div>
+        <span className="text-sm text-gray-400 mr-2">Page</span>
         <Button.Group>
           {pageSizeButtons.map((value, i) => (
             <Button
               key={i}
-              onClick={() => setParams({pageSize: value})}
+              onClick={() => setParams({ pageSize: value })}
               color={`${pageSize === value ? "blue" : "gray"}`}
               size="custom"
               theme={customTheme}

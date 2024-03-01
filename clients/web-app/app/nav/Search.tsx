@@ -50,7 +50,7 @@ export default function Search() {
       <button onClick={search}>
         <FaSearch
           size={34}
-          className="bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2"
+          className="bg-blue-500 text-white rounded-full p-2 cursor-pointer mx-2"
         />
       </button>
     </div>
