@@ -91,3 +91,12 @@ Next.js is an open-source web development framework created by the private compa
 - npm install react-countdown
 - [Flowbite React](https://www.flowbite-react.com/)
   - `npm install flowbite flowbite-react`
+
+
+## Helpres
+
+- [query-string](https://github.com/sindresorhus/query-string#readme) Assist in forming the query string parameters for the search requests.
+
+## State Management
+
+Instead of storing state locally in each component we will use [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) as a lightweight state management solution.
