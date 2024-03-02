@@ -122,3 +122,6 @@ Instead of storing state locally in each component we will use [Zustand](https:/
 ```
 
 `npm install next-auth`
+
+## CRUD with Forms
+
