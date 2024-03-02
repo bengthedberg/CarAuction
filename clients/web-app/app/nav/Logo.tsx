@@ -11,7 +11,9 @@ export default function Logo() {
   const reset = useParamsStore((state) => state.reset);
 
   function doReset() {
+    // Go back to the home page
     if (pathname !== "/") router.push("/");
+    // Reset all filter and search settings
     reset();
   }
 

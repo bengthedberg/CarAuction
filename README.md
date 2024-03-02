@@ -121,3 +121,4 @@ Instead of storing state locally in each component we will use [Zustand](https:/
     Resource->>Identity Server: Verify Token ["Client Id", "Client Secret"]
 ```
 
+`npm install next-auth`
