@@ -128,3 +128,9 @@ Instead of storing state locally in each component we will use [Zustand](https:/
 npm install react-hook-form
 npm install react-datepicker
 npm install -D @types/react-datepicker
+
+## Error messages
+
+Toast
+
+npm install react-hot-toast
