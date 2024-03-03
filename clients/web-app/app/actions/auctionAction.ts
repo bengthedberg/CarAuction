@@ -31,6 +31,11 @@ export async function getDetailedViewData(id: string): Promise<Auction> {
 
 export async function updateAuction(data: FieldValues, id: string) {
   const res = await fetchWrapper.put(`auctions/${id}`, data);
+  // force browser not to use cache, i.e pull in any changed data
   revalidatePath(`/auctions/${id}`);
   return res;
+}
+
+export async function deleteAuction(id: string) {
+  return await fetchWrapper.del(`auctions/${id}`);
 }
