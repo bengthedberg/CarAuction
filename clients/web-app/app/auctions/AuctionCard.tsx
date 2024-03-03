@@ -1,6 +1,6 @@
 import React from "react";
 import CountdownTimer from "./CountdownTimer";
-import CardImage from "./CardImage";
+import CardImage from "./CarImage";
 import { Auction } from "@/types";
 import Link from "next/link";
 
