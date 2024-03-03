@@ -72,6 +72,14 @@ export default function AuctionForm({ auction }: Props) {
     }
   }
 
+  function onCancel() {
+    try {
+      router.back();
+    } catch (error: any) {
+      toast.error(error.status + " " + error.message);
+    }
+  }
+
   return (
     <form className="flex flex-col mt-3" onSubmit={handleSubmit(onSubmit)}>
       <Input
@@ -140,7 +148,12 @@ export default function AuctionForm({ auction }: Props) {
       )}
 
       <div className="flex justify-between">
-        <Button size="md" color="warning" theme={customTheme}>
+        <Button
+          size="md"
+          color="warning"
+          theme={customTheme}
+          onClick={onCancel}
+        >
           Cancel
         </Button>
         <Button
