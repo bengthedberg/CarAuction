@@ -125,3 +125,6 @@ Instead of storing state locally in each component we will use [Zustand](https:/
 
 ## CRUD with Forms
 
+npm install react-hook-form
+npm install react-datepicker
+npm install -D @types/react-datepicker

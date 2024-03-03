@@ -1,5 +1,7 @@
 import Heading from "@/app/components/Heading";
 import React from "react";
+import AuctionCard from "../AuctionCard";
+import AuctionForm from "../AuctionForm";
 
 export default function Create() {
   return (
@@ -8,6 +10,7 @@ export default function Create() {
         title="Sell your car!"
         subtitle="Please enter the details of your car"
       />
+      <AuctionForm />
     </div>
   );
 }
