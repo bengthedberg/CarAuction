@@ -1,0 +1,6 @@
+@CardAction.BidService_HostAddress = http://localhost:5014
+
+GET {{CardAction.BidService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

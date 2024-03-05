@@ -134,3 +134,9 @@ npm install -D @types/react-datepicker
 Toast
 
 npm install react-hot-toast
+
+
+# Create Bid Service
+
+`dotnet new webapi --use-controllers -o src/CardAction.BidService`
+`dotnet sln add (ls -r **/*.csproj)`
