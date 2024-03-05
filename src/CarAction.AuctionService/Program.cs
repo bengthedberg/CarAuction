@@ -1,5 +1,6 @@
 using CarAction.AuctionService.Consumers;
 using CarAction.AuctionService.Data;
+using CarAction.Contracts.Auctions;
 
 using MassTransit;
 
@@ -28,6 +29,8 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumersFromNamespaceContaining<AuctionCreatedErrorConsumer>();
     x.AddConsumersFromNamespaceContaining<AuctionUpdatedErrorConsumer>();
     x.AddConsumersFromNamespaceContaining<AuctionDeletedErrorConsumer>();
+    x.AddConsumersFromNamespaceContaining<AuctionFinishedConsumer>();
+    x.AddConsumersFromNamespaceContaining<BidPlacedConsumer>();
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
 
     x.UsingRabbitMq((context, cfg) =>

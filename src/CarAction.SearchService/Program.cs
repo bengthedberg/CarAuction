@@ -1,6 +1,7 @@
 using System.Net;
 
 using CarAction.SearchService;
+using CarAction.SearchService.Consumers;
 
 using MassTransit;
 
@@ -17,6 +18,7 @@ builder.Services.AddHttpClient<AuctionServiceHttpClient>().AddPolicyHandler(GetP
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
     x.UsingRabbitMq((context, cfg) =>
     {

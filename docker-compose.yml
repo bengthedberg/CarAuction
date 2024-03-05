@@ -79,6 +79,25 @@ services:
       rabbitmq:
         condition: service_healthy
 
+  #  bid-svc:
+  #    image: search-svc:latest
+  #    build:
+  #      context: .
+  #      dockerfile: src/CardAction.BidService/Dockerfile
+  #    environment:
+  #      - ASPNETCORE_ENVIRONMENT=Development
+  #      - ASPNETCORE_URLS=http://+80
+  #      - RabbitMq__Host=rabbitmq
+  #      - ConnectionStrings__MongoDbConnection=mongodb://root:mongopw@mongodb
+  #      - IdentityServiceUrl=http://identity-svc
+  #    ports:
+  #      - 7003:80
+  #    depends_on:
+  #      mongodb:
+  #        condition: service_healthy
+  #      rabbitmq:
+  #        condition: service_healthy
+
   identity-svc:
     image: identity-svc:latest
     build:

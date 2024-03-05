@@ -26,7 +26,13 @@ public class AuctionServiceHttpClient
             .Project(x => x.UpdatedAt.ToString())
             .ExecuteFirstAsync();
 
-        return await _httpClient.GetFromJsonAsync<List<Item>>(_config["AuctionServiceUrl"]
+        if (_config["AuctionServiceUrl"].Contains("localhost"))
+        {
+            return await _httpClient.GetFromJsonAsync<List<Item>>(_config["AuctionServiceUrl"]
             + "/api/auctions?date=" + lastUpdated);
+        }
+
+        return await _httpClient.GetFromJsonAsync<List<Item>>(_config["AuctionServiceUrl"]
+            + "/auctions?date=" + lastUpdated);
     }
 }

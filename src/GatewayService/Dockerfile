@@ -8,7 +8,7 @@ COPY CarAuction.sln CarAuction.sln
 COPY src/CarAction.AuctionService/CarAction.AuctionService.csproj src/CarAction.AuctionService/CarAction.AuctionService.csproj
 COPY src/CarAction.SearchService/CarAction.SearchService.csproj src/CarAction.SearchService/CarAction.SearchService.csproj
 COPY src/GatewayService/GatewayService.csproj src/GatewayService/GatewayService.csproj
-#COPY src/CarAction.BiddingService/CarAction.BiddingService.csproj src/CarAction.BiddingService/CarAction.BiddingService.csproj
+COPY src/CardAction.BidService/CardAction.BidService.csproj src/CardAction.BidService/CardAction.BidService.csproj
 #COPY src/CarAction.NotificationService/CarAction.NotificationService.csproj src/CarAction.NotificationService/CarAction.NotificationService.csproj
 COPY src/CarAction.Contracts/CarAction.Contracts.csproj src/CarAction.Contracts/CarAction.Contracts.csproj
 COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityService.csproj

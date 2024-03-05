@@ -1,3 +1,5 @@
+using CardAction.BidService.Consumers;
+
 using MassTransit;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+    
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("bids", false));
 
     x.UsingRabbitMq((context, cfg) =>
