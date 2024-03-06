@@ -25,6 +25,9 @@ export default function LoginButton() {
       color="blue"
       theme={customTheme}
       onClick={() =>
+        // This will keep you logged in if your session is valid
+        // signIn("id-server", { callbackUrl: "/" })
+        // This will always force yout to login
         signIn("id-server", { callbackUrl: "/" }, { prompt: "login" })
       }
     >
