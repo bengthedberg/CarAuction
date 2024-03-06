@@ -20,12 +20,13 @@ COPY tests/CarAction.SearchService.Integration.Tests/CarAction.SearchService.Int
 RUN dotnet restore CarAuction.sln
 
 # Copy the micro service folders over
-COPY src/GatewayService src/GatewayService
-WORKDIR /app/src/GatewayService
+COPY src/NotificationService src/NotificationService
+COPY src/CarAction.Contracts src/CarAction.Contracts
+WORKDIR /app/src/NotificationService
 RUN dotnet publish -c Release -o /app/src/out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT [ "dotnet", "GatewayService.dll" ]
+ENTRYPOINT [ "dotnet", "NotificationService.dll" ]
