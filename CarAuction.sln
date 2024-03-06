@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAction.SearchService.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardAction.BidService", "src\CardAction.BidService\CardAction.BidService.csproj", "{44569903-BD55-434F-92B4-434762AB0550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "src\NotificationService\NotificationService.csproj", "{14EC2112-8B0B-4F4B-BE8C-49B864EA4A95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{44569903-BD55-434F-92B4-434762AB0550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44569903-BD55-434F-92B4-434762AB0550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44569903-BD55-434F-92B4-434762AB0550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14EC2112-8B0B-4F4B-BE8C-49B864EA4A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14EC2112-8B0B-4F4B-BE8C-49B864EA4A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14EC2112-8B0B-4F4B-BE8C-49B864EA4A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14EC2112-8B0B-4F4B-BE8C-49B864EA4A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 		{C54B37CE-C4B2-493D-9672-8C3D69618695} = {89B5BC8C-79B8-4007-AE3C-DF358464F369}
 		{F849B77E-CFC7-452A-8684-FB4FA17663BF} = {89B5BC8C-79B8-4007-AE3C-DF358464F369}
 		{44569903-BD55-434F-92B4-434762AB0550} = {E9AA6276-1388-434A-AB2B-05F198C0DDA6}
+		{14EC2112-8B0B-4F4B-BE8C-49B864EA4A95} = {E9AA6276-1388-434A-AB2B-05F198C0DDA6}
 	EndGlobalSection
 EndGlobal
