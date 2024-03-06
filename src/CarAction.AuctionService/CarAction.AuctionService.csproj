@@ -22,4 +22,8 @@
     <ProjectReference Include="..\CarAction.Contracts\CarAction.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services/" />
+  </ItemGroup>
+
 </Project>

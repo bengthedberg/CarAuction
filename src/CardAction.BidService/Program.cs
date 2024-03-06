@@ -1,3 +1,4 @@
+using CardAction.BidService;
 using CardAction.BidService.Consumers;
 
 using MassTransit;
@@ -14,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
-    
+
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("bids", false));
 
     x.UsingRabbitMq((context, cfg) =>
@@ -37,7 +38,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters.NameClaimType = "username"; // Specify what claim is the name of the user
     });
 
-    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddHostedService<CheckAuctionFinished>();
 
 var app = builder.Build();
 
