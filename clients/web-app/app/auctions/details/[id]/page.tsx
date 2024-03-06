@@ -1,4 +1,7 @@
-import { getDetailedViewData } from "@/app/actions/auctionAction";
+import {
+  getBidsForAuction,
+  getDetailedViewData,
+} from "@/app/actions/auctionAction";
 import { getCurrentUser } from "@/app/actions/authAction";
 import Heading from "@/app/components/Heading";
 import React from "react";
