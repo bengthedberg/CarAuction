@@ -1,3 +1,4 @@
+using CarAction.AuctionService;
 using CarAction.AuctionService.Consumers;
 using CarAction.AuctionService.Data;
 using CarAction.Contracts.Auctions;
@@ -54,14 +55,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddGrpc();
 
 var app = builder.Build();
 
 app.UseAuthentication(); // Must be before UseAuthorization
 app.UseAuthorization();
 
-
 app.MapControllers();
+app.MapGrpcService<GrpcAuctionService>();
 
 try
 {
