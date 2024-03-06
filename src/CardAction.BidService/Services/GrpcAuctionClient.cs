@@ -1,7 +1,4 @@
-﻿/*
-using AuctionService;
-
-using Grpc.Net.Client;
+﻿using Grpc.Net.Client;
 
 namespace CardAction.BidService;
 
@@ -43,5 +40,3 @@ public class GrpcAuctionClient
         }
     }
 }
-
-*/
