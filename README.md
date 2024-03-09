@@ -149,3 +149,15 @@ npm install react-hot-toast
 Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
 
 [nginx proxy](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs)
+
+
+## SSL
+
+Install [mkcert](https://github.com/FiloSottile/mkcert)
+
+`sudo mkcert -install`
+`sudo mkcert -key-file carauction.com.key -cert-file carauction.com.crt  app.carauction.com api.carauction.com id.carauction.com`
+
+
+
+sudo docker run -d -p 443:443 -v ./devcerts/carauction.com.crt:/etc/nginx/certs/carauction.com.crt -v ./devcerts/carauction.com.key:/etc/nginx/certs/carauction.com.key nginx
