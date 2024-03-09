@@ -128,7 +128,7 @@ services:
       - ASPNETCORE_URLS=http://+80
       - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identity
     ports:
-      - 5001:80
+      - 80:80
     depends_on:
       postgres:
         condition: service_healthy
@@ -143,6 +143,25 @@ services:
       - ASPNETCORE_URLS=http://+80
     ports:
       - 6001:80
+
+  web-app:
+    image: web-app
+    build:
+      context: .
+      dockerfile: clients/web-app/Dockerfile
+    volumes:
+      - /var/lib/web/data
+    ports:
+      - 3000:3000
+    extra_hosts:
+      - id.carauction.com:172.18.0.8
+    environment:
+      - NEXTAUTH_SECRET=somethingreallyreallysecret
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_URL_INTERNAL=http://web-app:3000
+      - API_URL=http://gateway-svc/
+      - ID_URL=http://id.carauction.com
+      - NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
 
 volumes:
   pgdata:
