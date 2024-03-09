@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using Microsoft.EntityFrameworkCore;
 
+using Npgsql;
+
+using Polly;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -71,14 +75,11 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGrpcService<GrpcAuctionService>();
 
-try
-{
-    DbInitializer.InitializeDb(app);
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex);
-}
+var retryPolicy = Policy
+    .Handle<NpgsqlException>()
+    .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(10));
+
+retryPolicy.ExecuteAndCapture(() => DbInitializer.InitializeDb(app));
 
 app.Run();
 
