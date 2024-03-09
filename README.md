@@ -140,3 +140,12 @@ npm install react-hot-toast
 
 `dotnet new webapi --use-controllers -o src/CardAction.BidService`
 `dotnet sln add (ls -r **/*.csproj)`
+
+
+# Create Ingress nginx
+
+### What is ingress?
+
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+
+[nginx proxy](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs)
